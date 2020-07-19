@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.gyh.mapper.ProductMapper">
+	<!-- 根据productID查询学生信息,id必须与接口中的方法名一致,输入参数一致,输出参数一致 -->
+	<select id="findProByProductID" parameterType="int"
+		resultType="jmu.gyh.po.Product">
+		select * from product where productID = #{productID}
+	</select>
+
+	<select id="findAllPro" resultType="jmu.gyh.po.Product">
+		select * from product
+	</select>
+
+	<insert id="insertPro" parameterType="jmu.gyh.po.Product"
+	keyProperty="productID" useGeneratedKeys="true">
+		insert into
+		product(serialNumber, name, brand, model, price, picture, description)
+		values(#{serialNumber}, #{name}, #{brand}, #{model}, #{price},
+		#{picture}, #{description})
+	</insert>
+
+	<update id="updatePro" parameterType="jmu.gyh.po.Product">
+		update product set serialNumber = #{serialNumber}, 
+		name = #{name}, brand = #{brand}, 
+		model = #{model}, price = #{price}, 
+		picture = #{picture}, description = #{description}
+		where productID = #{productID}
+	</update>
+
+	<delete id="deleteProByProductID" parameterType="int">
+		delete from
+		product where productID = #{productID}
+	</delete>
+
+	<select id="findProByLike" parameterType="String" resultType="jmu.gyh.po.Product">
+		select * from product where serialNumber like #{string} or name like #{string} 
+		or brand like #{string} or model like #{string} or picture like #{string} or description like #{string}
+	</select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.gyh.mapper.RevertMapper">
+	<select id="findRevByMesID" parameterType="int"
+		resultType="jmu.gyh.po.Revert">
+		select * from Revert where messageID = #{messageID}
+	</select>
+
+	<insert id="insertRev" parameterType="jmu.gyh.po.Revert" 
+	keyProperty="revertID" useGeneratedKeys="true">
+		insert into revert(messageID, content, writer, writeDate) 
+		values(#{messageID}, #{content}, #{writer}, #{writeDate})
+	</insert>
+	
+	<delete id="deleteRev" parameterType="int">
+		delete from revert where revertID = #{revertID}
+	</delete>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.gyh.mapper.MessageMapper">
+	<select id="findMesByMesID" parameterType="int" resultType="jmu.gyh.po.Message">
+		select * from message where messageID = #{messageID}
+	</select>
+
+	<select id="findAllMes" resultType="jmu.gyh.po.Message">
+		select * from message
+	</select>
+
+	<insert id="insertMes" parameterType="jmu.gyh.po.Message" 
+	keyProperty="messageID" useGeneratedKeys="true">
+		insert into message(title, content, writer, writeDate, count) 
+		values(#{title}, #{content}, #{writer}, #{writeDate}, #{count})
+	</insert>
+	
+	<update id="updateMesCountAdd" parameterType="int">
+		update message set count = count + 1 where messageID = #{messageID}
+	</update>
+	
+	<update id="updateMesCountSub" parameterType="int">
+		update message set count = count - 1 where messageID = #{messageID}
+	</update>
+	
+	<select id="findMesByLike" parameterType="String" resultType="jmu.gyh.po.Message">
+		select * from message where title like #{string} or content like #{string} 
+		or writer like #{string}
+	</select>
+</mapper>
